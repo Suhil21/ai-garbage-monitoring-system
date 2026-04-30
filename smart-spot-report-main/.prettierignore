@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+*.log
+.env
+.env.local
+public/project-files
+supabase/functions
+README.md
+LICENSE

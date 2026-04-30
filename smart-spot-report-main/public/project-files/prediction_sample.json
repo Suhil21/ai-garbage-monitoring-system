@@ -1,0 +1,18 @@
+{
+  "image": "sample.jpg",
+  "prediction": "Garbage",
+  "confidence": 0.85,
+  "garbage_level": 0.85,
+  "status": "Pending",
+  "location": {
+    "latitude": 12.9716,
+    "longitude": 77.5946
+  },
+  "model_scores": {
+    "cnn_mobilenetv2": 0.72,
+    "gemini_vision": 0.92,
+    "ensemble_final": 0.85
+  },
+  "threshold": 0.4,
+  "decision_rule": "score >= threshold => Pending Cleanup"
+}

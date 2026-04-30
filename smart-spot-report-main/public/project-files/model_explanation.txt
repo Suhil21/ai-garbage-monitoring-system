@@ -1,0 +1,32 @@
+MODEL EXPLANATION
+=================
+
+INPUT
+-----
+An image uploaded by the user (JPG / PNG) along with the
+GPS location (latitude, longitude) where the photo was taken.
+
+PROCESSING
+----------
+1. The image is uploaded to Cloud Storage.
+2. The CNN (MobileNetV2) loads in the browser and extracts visual
+   features (edges, textures, shapes, objects).
+3. These features are matched against garbage-related ImageNet
+   classes (bottle, can, plastic bag, carton, trash, etc.).
+4. A second model (Gemini Vision) examines the same image on the
+   server and returns its own garbage score.
+5. Both scores are combined using a weighted ensemble:
+
+       final = 0.35 * CNN + 0.65 * Gemini
+
+OUTPUT
+------
+- Prediction: "Garbage" or "No Garbage"
+- Confidence: a number between 0 and 1 (shown as a percentage)
+- Status:
+    >= 0.40  -> Pending Cleanup
+    <  0.40  -> No Cleanup Required
+
+The result is saved into the database (PostgreSQL via Supabase) and
+shown on the dashboard so a ward officer can be assigned to clean
+the location if needed.
